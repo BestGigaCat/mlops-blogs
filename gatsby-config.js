@@ -7,7 +7,7 @@ module.exports = {
       summary: `Supplement reads for MLOps.`,
     },
     description: ``,
-    siteUrl: ``,
+    siteUrl: `https://bestgigacat.github.io/mlops-blogs/`,
   },
   plugins: [
     `gatsby-plugin-image`,

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -9,58 +9,33 @@ const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
-  if (posts.length === 0) {
+    const post = posts[0]
     return (
-      <Layout location={location} title={siteTitle}>
-        <Seo title="All posts" />
-        <Bio />
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
-      </Layout>
-    )
-  }
-
-  return (
-    <Layout location={location} title={siteTitle}>
-      <Seo title="All posts" />
-      <Bio />
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-
-          return (
-            <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
+        <Layout location={location} title={siteTitle}>
+            <Seo
+                title={post.frontmatter.title}
+                description={post.frontmatter.description || post.excerpt}
+            />
+            <article
+                className="blog-post"
                 itemScope
                 itemType="http://schema.org/Article"
-              >
+            >
                 <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
+                    <h1 itemProp="headline">{post.frontmatter.title}</h1>
+                    <p>{post.frontmatter.date}</p>
                 </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
-              </article>
-            </li>
-          )
-        })}
-      </ol>
-    </Layout>
-  )
+                <section
+                    dangerouslySetInnerHTML={{ __html: post.html }}
+                    itemProp="articleBody"
+                />
+                <hr />
+                <footer>
+                    <Bio />
+                </footer>
+            </article>
+        </Layout>
+    )
 }
 
 export default BlogIndex
@@ -74,7 +49,9 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
+        id
         excerpt
+        html
         fields {
           slug
         }
