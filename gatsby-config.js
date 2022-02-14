@@ -1,16 +1,13 @@
 module.exports = {
   pathPrefix: "/mlops-blogs",
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `MLOps Blog`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Shiming Ren`,
+      summary: `Supplement reads for MLOps.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
-    social: {
-      twitter: `kylemathews`,
-    },
+    description: ``,
+    siteUrl: ``,
   },
   plugins: [
     `gatsby-plugin-image`,
