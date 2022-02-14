@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/mlops-blogs",
   siteMetadata: {
     title: `Gatsby Starter Blog`,
     author: {
